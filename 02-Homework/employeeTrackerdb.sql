@@ -32,5 +32,3 @@ VALUES (33, "Gym Leader", 115000.00, 3), (11, "Nurse", 58000.00, 1), (44, "Offic
 
 INSERT INTO employees(id, first_name, last_name, role_id, manager_id)
 VALUES (3301, "Brock", "Takeshi", 331, null), (33011, "Cool", "Trainer", 3301, 331), (00011, "Oak's", "Aide", 0001, 001), (0001, "Professer", "Oak", 00, null);
-
-SELECT * FROM department, roles, employee;

@@ -8,15 +8,14 @@ const connection = require("./config/connection");
 const view = require("./Functions/viewFunctions");
 const add = require("./Functions/addFunctions");
 const remove = require("./Functions/deleteFunctions");
+const update = require("./Functions/updateFunctions");
 const { builtinModules } = require("module");
 
-//start
-start();
-
 //Starting inquirer
+
   function start() {
       inquirer.prompt({
-          type: "list",
+          type: "rawlist",
           message: "What would you like to do?",
           name: "start",
           choices:[
@@ -24,30 +23,37 @@ start();
             "View roles",
             "View employees",
             "Add department",
-            "Add roles",
+            "Add role",
             "Add employee",
             "Remove department",
-            "Remove roles",
+            "Remove role",
             "Remove employee",
+            "Update employee",
+            "Exit Program"
           ]
       }).then(function(answers) {
-           if (answers.start === "View department"){
-            view.departments();
-            start();
+           if (answers.start === "View departments"){
+            view.departments(function(data){
+                console.table(data)
+                start();
+            });
+          
             
         } else if (answers.start === "View roles"){
             view.roles();
             start();
             
-        } else if (answers.start === "View employee"){
-            view.employees();
-            start();
+        } else if (answers.start === "View employees"){
+            view.employees(function(data){
+                console.table(data);
+                start();
+            });
 
         } else if (answers.start === "Add department"){
             add.department();
-            start();
+            start();            
 
-        } else if (answers.start === "Add roles"){
+        } else if (answers.start === "Add role"){
             add.role();
             start();
 
@@ -59,14 +65,23 @@ start();
             remove.department();
             start();
 
-        } else if (answers.start === "Remove roles"){
-            remove.roles();
+        } else if (answers.start === "Remove role"){
+            remove.role();
             start();
 
         } else if (answers.start === "Remove employee"){
             remove.employee();
             start();
 
+        } else if (answers.start === "Update employee"){
+            update.employee();
+            start();
+
+        } else if (answers.start === "Exit Program"){
+            process.exit();
+
         }
       })
   }
+
+  start();

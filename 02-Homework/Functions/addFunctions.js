@@ -10,7 +10,7 @@ const view = require("./viewFunctions");
 
 let add = {
 
-department: function addDepartment() {
+department: function() {
         let questions = [
           {
             type: "input",
@@ -35,7 +35,7 @@ department: function addDepartment() {
             console.log("add completed")
         })
     },
-    role: function addRoles() {
+    role: function() {
         let questions = [
           {
             type: "input",
@@ -65,14 +65,14 @@ department: function addDepartment() {
               id: answer.id,
               title: answer.title,
               salary: answer.salary,
-              department: answer.department_id
+              department_id: answer.department_id
             })
 
             view.roles();
             console.log("add completed")
         })
     },
-    employee: function addemployee() {
+    employee: function() {
         let questions = [
           {
             type: "input",

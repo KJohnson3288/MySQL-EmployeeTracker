@@ -6,15 +6,15 @@ const mysql = require("mysql");
 //ORM files
 const connection = require("../config/connection");
 const view = require("./viewFunctions");
+const start = require("../server")
 
 
 
 //orm functions to run when any of the view choices are selected
 
-
     let remove = {
 
-        department: function deleteDepartment() {
+        department: function() {
 
             view.departments();
 
@@ -22,21 +22,22 @@ const view = require("./viewFunctions");
             {
                 type: "input",
                 message: "Enter the id of the department you would like to remove?",
-                name:"_department"
+                name:"id"
             }
             inquirer.prompt(question).then(function(answer) {
                 connection.query(
-                    "DELETE FROM departments WHERE id = ?",
+                    "DELETE FROM departments WHERE ?",
                 {
-                    id: answer.remove_department
+                    id: answer.id
                 })
+                
                 console.log("Department removed!")
                 view.departments();
             })
         },
-        role: function deleteRole() {
+        role: function() {
 
-            view.departments();
+            view.roles();
 
             let question = 
             {
@@ -46,17 +47,17 @@ const view = require("./viewFunctions");
             }
             inquirer.prompt(question).then(function(answer) {
                 connection.query(
-                    "DELETE FROM roles WHERE departments.id = ?",
+                    "DELETE FROM roles WHERE ?",
                 {
                     id: answer.remove_role
                 })
-                console.log("Department removed!")
+                console.log("Role removed!")
                 view.roles();
             })
         },
-        employee: function deleteEmployee() {
+        employee: function() {
 
-            view.departments();
+            view.employees();
 
             let question = 
             {
@@ -66,11 +67,11 @@ const view = require("./viewFunctions");
             }
             inquirer.prompt(question).then(function(answer) {
                 connection.query(
-                    "DELETE FROM employees WHERE id = ?",
+                    "DELETE FROM employees WHERE ?",
                 {
                     id: answer.remove_employee
                 })
-                console.log("Department removed!")
+                console.log("Employee removed!")
                 view.employees();
             })
         },
