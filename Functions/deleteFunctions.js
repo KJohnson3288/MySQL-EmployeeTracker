@@ -14,67 +14,79 @@ const start = require("../server")
 
     let remove = {
 
-        department: function() {
-
-            view.departments();
-
+        department: function(cb) {
+           
+            view.departments((data) => {
+                console.table(data)
+            });
+            
             let question = 
-            {
-                type: "input",
+            [{
+                type: "number",
                 message: "Enter the id of the department you would like to remove?",
                 name:"id"
-            }
+            }];
             inquirer.prompt(question).then(function(answer) {
                 connection.query(
                     "DELETE FROM departments WHERE ?",
                 {
                     id: answer.id
                 })
-                
-                console.log("Department removed!")
-                view.departments();
-            })
+        
+            }).then(()=>{
+                cb("department removed");
+              });
         },
-        role: function() {
+        
+        role: function(cb) {
 
-            view.roles();
+            view.roles((data) => {
+                console.table(data)
+            });
+            
 
             let question = 
-            {
+            [{
                 type: "input",
                 message: "Enter the id of the role you would like to remove?",
                 name:"remove_role"
-            }
+            }]
             inquirer.prompt(question).then(function(answer) {
                 connection.query(
                     "DELETE FROM roles WHERE ?",
                 {
                     id: answer.remove_role
                 })
-                console.log("Role removed!")
-                view.roles();
-            })
+               
+            }).then(()=>{
+                cb("role remove");
+              });
         },
-        employee: function() {
 
-            view.employees();
+        employee: function(cb) {
+
+            view.employees((data) => {
+                console.table(data)
+            });
+            
 
             let question = 
-            {
+            [{
                 type: "input",
                 message: "Enter the id of the employee you would like to remove?",
                 name:"remove_employee"
-            }
+            }]
             inquirer.prompt(question).then(function(answer) {
                 connection.query(
                     "DELETE FROM employees WHERE ?",
                 {
                     id: answer.remove_employee
                 })
-                console.log("Employee removed!")
-                view.employees();
-            })
-        },
+                
+            }).then(()=>{
+                cb("employee remove");
+              });
+        }
 
     }
 
